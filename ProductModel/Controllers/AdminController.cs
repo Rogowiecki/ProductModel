@@ -60,7 +60,7 @@ namespace ProductModel.Controllers
             };
             dbContext.ProductDBs.Add(productDB);
             dbContext.SaveChanges();
-            return View("Home/Index");
+            return RedirectToAction("Index", "Home");
         }
     }
 
