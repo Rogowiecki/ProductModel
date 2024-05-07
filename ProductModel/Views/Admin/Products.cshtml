@@ -1,4 +1,5 @@
-﻿<div class="row">
+﻿@model List<Product> 
+<div class="row">
     <div class="col-3">
         <div class="row">
             <a href="/admin/orders">Заказы</a>
@@ -20,7 +21,7 @@
             <div class="row">
                 <table class="table">
                 @{
-                    foreach (var product in Model.GetProducts())
+                    foreach (var product in Model)
                     {
                         <tr>
                                 <td>@product.Name</td>

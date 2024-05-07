@@ -2,18 +2,17 @@
 using ProductModel.Models;
 using OnLineShop.DB.Models;
 using OnLineShop.DB;
+using ProductModel.Helpers;
 
 namespace ProductModel.Controllers
 {
     public class AdminController : Controller
     {
-        public readonly IGetProducts listProducts;
-        public readonly DatabaseContext dbContext;
+        public readonly IGetProducts RepositoryProductDBs;
 
-        public AdminController(IGetProducts list_Products, DatabaseContext dbContext)
+        public AdminController(IGetProducts list_ProductDBs)
         {
-            this.listProducts = list_Products;
-            this.dbContext = dbContext;
+            this.RepositoryProductDBs = list_ProductDBs;
         }
 
         public IActionResult Orders()
@@ -33,7 +32,8 @@ namespace ProductModel.Controllers
 
         public IActionResult Products()
         {
-            return View(listProducts);
+
+            return View(Mapping.ListProductDBToListProduct(RepositoryProductDBs.GetProducts()));
         }
 
         public IActionResult AddProduct()
@@ -50,17 +50,8 @@ namespace ProductModel.Controllers
                 return View(product);
             }
             // тут сохранить продукт в product DB
-            var productDB = new ProductDB
-            {
-               // Id = 100,
-                Name = product.Name,
-                Description = product.Description,
-                Cost = product.Cost,
-                URLImage = "gbdfsd"
-            };
-            dbContext.ProductDBs.Add(productDB);
-            dbContext.SaveChanges();
-            return RedirectToAction("Index", "Home");
+            RepositoryProductDBs.Add(Mapping.ProductToProductDB(product));
+            return RedirectToAction("Index", "Product");
         }
     }
 

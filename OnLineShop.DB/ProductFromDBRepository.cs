@@ -1,5 +1,6 @@
 ﻿using OnLineShop.DB.Models;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace OnLineShop.DB
 {
@@ -21,7 +22,7 @@ namespace OnLineShop.DB
 
         public List<ProductDB> GetProducts()
         {
-            return null;
+            return databaseContext.ProductDBs.ToList();
         }
 
         public ProductDB TryGetById(int IdProduct)
