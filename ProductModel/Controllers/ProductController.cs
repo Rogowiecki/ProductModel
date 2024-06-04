@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OnLineShop.DB;
+using OnLineShop.DB.Models;
 using ProductModel.Helpers;
+using ProductModel.Models;
+using System.Collections.Generic;
 
 namespace ProductModel.Controllers
 {

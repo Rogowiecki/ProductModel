@@ -5,7 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using OnLineShop.DB;
-
+using OnLineShop.DB.Models;
 
 namespace ProductModel
 {
@@ -27,9 +27,10 @@ namespace ProductModel
             services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(connection));
             
             services.AddTransient<IGetProducts, ProductFromDBRepository>();
+            services.AddTransient<IGetCarts, CartsFromDBRepository>();
 
             //services.AddSingleton<IGetProducts, ProductRepository>();
-            services.AddSingleton<ICarts, CartsRepository>();
+            //services.AddSingleton<ICarts, CartsFromDBRepository>();
 
             services.AddControllersWithViews();
         }

@@ -1,4 +1,5 @@
-﻿using OnLineShop.DB.Models;
+﻿using Microsoft.AspNetCore.Http.Connections;
+using OnLineShop.DB.Models;
 using ProductModel.Models;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace ProductModel.Helpers
         {
             return new Product
             {
+                Id= product.Id,
                 Name = product.Name,
                 Description = product.Description,
                 Cost = product.Cost,
@@ -37,6 +39,35 @@ namespace ProductModel.Helpers
                 Cost = productView.Cost,
                 URLImage = "https://avatars.mds.yandex.net/i?id=766637e7fecd215c2916b5d4741bd5f4_l-5282144-images-thumbs&n=27&h=480&w=480"
             };
+        }
+
+        public static Cart CardDBToCart(CartDB cart)
+        {
+            if (cart == null)
+            {
+                return null;
+            }
+            return new Cart
+            {
+                Id = cart.Id,
+                User = cart.User,
+                Products = ListCartDBItemToListCart(cart.Products)
+            };
+        }
+
+        public static CartItem CardDBItemToCartItem(CartDBItem cart)
+        {
+            return new CartItem
+            {
+                Amount = cart.Amount,
+                Id = cart.Id,
+                Product = ProductDBToProduct(cart.Product)
+            };
+        }
+
+        public static List<CartItem> ListCartDBItemToListCart(List<CartDBItem> cartDBItems)
+        {
+            return cartDBItems.Select(CardDBItemToCartItem).ToList();
         }
     }
 }

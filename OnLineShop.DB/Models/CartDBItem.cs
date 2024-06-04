@@ -1,12 +1,11 @@
 ﻿using System;
 
-namespace ProductModel.Models
+namespace OnLineShop.DB.Models
 {
-    public class CartItem
+    public class CartDBItem
     {
         public int Id { get; set; }
-        public Product Product { get; set; }
+        public ProductDB Product { get; set; }
         public int Amount { get; set; }
-
     }
 }

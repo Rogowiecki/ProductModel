@@ -1,4 +1,5 @@
-﻿using OnLineShop.DB.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using OnLineShop.DB.Models;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -27,7 +28,7 @@ namespace OnLineShop.DB
 
         public ProductDB TryGetById(int IdProduct)
         {
-            return null;
+            return databaseContext.ProductDBs.FirstOrDefault(item => item.Id == IdProduct);
         }
     }
 }

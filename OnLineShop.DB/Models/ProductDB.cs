@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace OnLineShop.DB.Models
 {
@@ -9,7 +10,11 @@ namespace OnLineShop.DB.Models
         public string Description { get; set; }
         public decimal Cost { get; set; }
         public string URLImage { get; set; }
+        public List<CartDBItem> Items { get; set; }
 
-        public ProductDB() { }
+        public ProductDB() 
+        { 
+            Items= new List<CartDBItem>();  
+        }
     }
 }

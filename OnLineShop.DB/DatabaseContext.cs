@@ -7,10 +7,12 @@ namespace OnLineShop.DB
     {
         // название таблицы
         public DbSet<ProductDB> ProductDBs { get; set; }
+        public DbSet<CartDB> CartDBs { get; set; }
+        public DbSet<CartDBItem> CardDBItems { get; set; }
 
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
         {
-            Database.EnsureCreated();
+            Database.Migrate();
         }    
     }
 }

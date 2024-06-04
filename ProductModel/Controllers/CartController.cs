@@ -1,45 +1,49 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using OnLineShop.DB;
+using OnLineShop.DB.Models;
+using ProductModel.Helpers;
 using ProductModel.Models;
+
 
 namespace ProductModel.Controllers
 {
     public class CartController : Controller
     {
-        readonly IGetProducts__ products;
-        ICarts carts;
-
-        public CartController(IGetProducts__ products, ICarts carts)
+        public readonly IGetProducts ProductRepository;
+        public readonly IGetCarts CartRepository; 
+        public CartController(IGetProducts products, IGetCarts carts)
         {
-            this.products = products;
-            this.carts = carts;
+            this.ProductRepository = products;
+            this.CartRepository = carts;
         }
 
-        public IActionResult Index(int idProduct)
+        public IActionResult Index()
         {
-            Cart cart = carts.GetCart(Constants.MD);
-            return View(cart);
+            CartDB cart = CartRepository.TryGetByUserId("md");
+            return View(Mapping.CardDBToCart(cart));
         }
 
         public IActionResult Add(int idProduct)
         {
-            Cart cart = carts.GetCart(Constants.MD);
-            Product item = products.TryGetById(idProduct);
-            cart.Add(item);
+            ProductDB item = ProductRepository.TryGetById(idProduct);
+            CartRepository.Add(item,"md");
             return RedirectToAction("Index");
         }
 
         public IActionResult DecreaseProduct(int idProduct)
         {
-            Cart cart = carts.GetCart(Constants.MD);
-            cart.DecreaseProduct(idProduct);
-            return RedirectToAction("Index");
+            //Cart cart = carts.GetCart(Constants.MD);
+            //cart.DecreaseProduct(idProduct);
+            //return RedirectToAction("Index");
+            return View();
         }
 
         public IActionResult Delete()
         {
-            Cart cart = carts.GetCart(Constants.MD);
-            cart.Clear();
-            return RedirectToAction("Index");
+            //Cart cart = carts.GetCart(Constants.MD);
+            //cart.Clear();
+            //return RedirectToAction("Index");
+            return View();
         }
     }
 }
