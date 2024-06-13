@@ -9,7 +9,7 @@ namespace OnLineShop.DB
         public DbSet<ProductDB> ProductDBs { get; set; }
         public DbSet<CartDB> CartDBs { get; set; }
         public DbSet<CartDBItem> CardDBItems { get; set; }
-
+        public DbSet<User> Users { get; set; }
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
         {
             Database.Migrate();

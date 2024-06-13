@@ -3,16 +3,19 @@ using ProductModel.Models;
 using OnLineShop.DB.Models;
 using OnLineShop.DB;
 using ProductModel.Helpers;
+using System.Collections.Generic;
 
 namespace ProductModel.Controllers
 {
     public class AdminController : Controller
     {
         public readonly IGetProducts RepositoryProductDBs;
+        public readonly IUsersRepository usersRepository;
 
-        public AdminController(IGetProducts list_ProductDBs)
+        public AdminController(IGetProducts repositoryProductDBs, IUsersRepository usersRepository)
         {
-            this.RepositoryProductDBs = list_ProductDBs;
+            RepositoryProductDBs = repositoryProductDBs;
+            this.usersRepository = usersRepository;
         }
 
         public IActionResult Orders()
@@ -22,8 +25,15 @@ namespace ProductModel.Controllers
 
         public IActionResult Users()
         {
-            return View();
-        }
+			var users = usersRepository.GetAll();
+
+			var UsersViewModel = new List<UserViewModel>();
+			foreach (var user in users)
+			{
+				UsersViewModel.Add(new UserViewModel { Id = user.Id, UserName = user.UserName, Password = user.Password });
+			}
+			return View(UsersViewModel);
+		}
 
         public IActionResult Roles()
         {

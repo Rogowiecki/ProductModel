@@ -28,6 +28,7 @@ namespace ProductModel
             
             services.AddTransient<IGetProducts, ProductFromDBRepository>();
             services.AddTransient<IGetCarts, CartsFromDBRepository>();
+            services.AddTransient<IUsersRepository, UsersDbRepository>();
 
             //services.AddSingleton<IGetProducts, ProductRepository>();
             //services.AddSingleton<ICarts, CartsFromDBRepository>();
